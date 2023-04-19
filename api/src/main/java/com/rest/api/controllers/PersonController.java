@@ -1,9 +1,8 @@
 package com.rest.api.controllers;
 
 import com.rest.api.Services.PersonServices;
-import com.rest.api.model.Person;
+import com.rest.api.data.dto.v1.PersonDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -19,27 +18,27 @@ public class PersonController {
     private PersonServices personServices;
 
     @GetMapping(value = "/{id}")
-    public Person findById(@PathVariable(value = "id") Long id){
+    public PersonDTO findById(@PathVariable(value = "id") Long id){
         return personServices.findById(id);
     }
 
     @GetMapping
-    public List<Person> findAll(){
+    public List<PersonDTO> findAll(){
         return personServices.findAll();
     }
 
     @PostMapping
-    public ResponseEntity<Person> create(@RequestBody Person person){
-        Person savedPerson = personServices.create(person);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedPerson.getId()).toUri();
+    public ResponseEntity<PersonDTO> create(@RequestBody PersonDTO personDTO){
+        PersonDTO savedPersonDTO = personServices.create(personDTO);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedPersonDTO.getId()).toUri();
 
-        return ResponseEntity.created(location).build();
+        return ResponseEntity.created(location).body(savedPersonDTO);
     }
 
     @PutMapping
-    public ResponseEntity<?> update(@RequestBody Person person){
-        personServices.update(person);
-        return  ResponseEntity.ok().build();
+    public ResponseEntity<?> update(@RequestBody PersonDTO personDTO){
+        PersonDTO updatePersonDTO = personServices.update(personDTO);
+        return  ResponseEntity.ok().body(updatePersonDTO);
     }
 
     @DeleteMapping(value = "/{id}")

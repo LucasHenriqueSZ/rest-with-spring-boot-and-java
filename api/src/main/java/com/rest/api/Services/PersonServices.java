@@ -1,6 +1,8 @@
 package com.rest.api.Services;
 
+import com.rest.api.data.dto.v1.PersonDTO;
 import com.rest.api.exceptions.ResourceNotFoundException;
+import com.rest.api.mapper.ModelMapper;
 import com.rest.api.model.Person;
 import com.rest.api.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,36 +15,37 @@ import java.util.logging.Logger;
 public class PersonServices {
     private final Logger logger = Logger.getLogger(PersonServices.class.getName());
 
-    //add dependency injection to repository PersonRepository
     @Autowired
     private PersonRepository repository;
 
-    public Person findById(Long id){
+    public PersonDTO findById(Long id){
         logger.info("Find one person by id: " + id);
-        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(" No records found for this ID"));
+        Person person = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(" No records found for this ID"));
+        return ModelMapper.parseObject(person,PersonDTO.class);
     }
 
-    public List<Person> findAll(){
+    public List<PersonDTO> findAll(){
         logger.info("Find all persons");
-        return repository.findAll();
+        return ModelMapper.parseListObjects(repository.findAll(),PersonDTO.class);
     }
 
-    public Person create(Person person){
+    public PersonDTO create(PersonDTO personDTO){
         logger.info("Create a new person");
-        return repository.save(person);
+        Person person = ModelMapper.parseObject(personDTO,Person.class);
+        return ModelMapper.parseObject(repository.save(person),PersonDTO.class);
     }
 
-    public Person update(Person person){
+    public PersonDTO update(PersonDTO personDTO){
         logger.info("update a person");
-       Person entity = repository.findById(person.getId())
+       Person entity = repository.findById(personDTO.getId())
                .orElseThrow(() -> new ResourceNotFoundException(" No records found for this ID"));
 
-       entity.setLastName(person.getFirstName());
-       entity.setLastName(person.getLastName());
-       entity.setAddress(person.getAddress());
-       entity.setGender(person.getGender());
+       entity.setFirstName(personDTO.getFirstName());
+       entity.setLastName(personDTO.getLastName());
+       entity.setAddress(personDTO.getAddress());
+       entity.setGender(personDTO.getGender());
 
-        return repository.save(person);
+        return ModelMapper.parseObject(repository.save(entity),PersonDTO.class);
     }
 
     public void delete(Long id){
