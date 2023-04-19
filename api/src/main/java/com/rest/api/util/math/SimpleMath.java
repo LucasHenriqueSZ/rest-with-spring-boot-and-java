@@ -1,4 +1,4 @@
-package com.rest.api.math;
+package com.rest.api.util.math;
 
 public class SimpleMath {
     public double sum(double a, double b) {

@@ -1,8 +1,8 @@
 package com.rest.api.controllers;
 
 import com.rest.api.exceptions.UnsupportedMathOperationException;
-import com.rest.api.math.SimpleMath;
-import com.rest.api.util.NumberConverter;
+import com.rest.api.util.math.SimpleMath;
+import com.rest.api.util.math.NumberConverter;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,4 +1,4 @@
-package com.rest.api.util;
+package com.rest.api.util.math;
 
 public class NumberConverter {
     public static double convertToDouble(String numberStr) {
