@@ -1,37 +1,23 @@
-package com.rest.api.model;
+package com.rest.api.data.dto.v2;
 
-import jakarta.persistence.*;
+import com.rest.api.data.dto.v1.PersonDTO;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-@Entity
-@Table (name = "person")
-public class Person implements Serializable {
+public class PersonDTOv2 implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "first_name", nullable = false,length = 80)
     private String firstName;
-
-    @Column(name = "last_name", nullable = false, length = 80)
     private String lastName;
-
-    @Column( nullable = false, length = 150)
     private String address;
-
-    @Column( nullable = false, length = 10)
     private String gender;
-
-    @Column(name = "birth_day")
     private LocalDate birthDay;
 
-    public Person() {}
+    public PersonDTOv2() {}
 
     public Long getId() {
         return id;
@@ -84,8 +70,8 @@ public class Person implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Person person)) return false;
-        return Objects.equals(getId(), person.getId()) && Objects.equals(getFirstName(), person.getFirstName()) && Objects.equals(getLastName(), person.getLastName()) && Objects.equals(getAddress(), person.getAddress()) && Objects.equals(getGender(), person.getGender()) && Objects.equals(getBirthDay(), person.getBirthDay());
+        if (!(o instanceof PersonDTOv2 that)) return false;
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getFirstName(), that.getFirstName()) && Objects.equals(getLastName(), that.getLastName()) && Objects.equals(getAddress(), that.getAddress()) && Objects.equals(getGender(), that.getGender()) && Objects.equals(getBirthDay(), that.getBirthDay());
     }
 
     @Override
