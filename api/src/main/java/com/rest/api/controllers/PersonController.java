@@ -12,7 +12,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/api/v1/person")
 public class PersonController {
 
     @Autowired
@@ -28,22 +28,9 @@ public class PersonController {
         return personServices.findAll();
     }
 
-    @GetMapping("/v2")
-    public List<PersonDTOv2> findAllV2(){
-        return personServices.findAllv2();
-    }
-
     @PostMapping
     public ResponseEntity<PersonDTO> create(@RequestBody PersonDTO personDTO){
         PersonDTO savedPersonDTO = personServices.create(personDTO);
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedPersonDTO.getId()).toUri();
-
-        return ResponseEntity.created(location).body(savedPersonDTO);
-    }
-
-    @PostMapping(value = "/v2")
-    public ResponseEntity<PersonDTOv2> createV2(@RequestBody PersonDTOv2 personDTO){
-        PersonDTOv2 savedPersonDTO = personServices.createv2(personDTO);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedPersonDTO.getId()).toUri();
 
         return ResponseEntity.created(location).body(savedPersonDTO);

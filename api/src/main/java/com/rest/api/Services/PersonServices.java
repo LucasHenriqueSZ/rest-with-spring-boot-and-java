@@ -1,7 +1,6 @@
 package com.rest.api.Services;
 
 import com.rest.api.data.dto.v1.PersonDTO;
-import com.rest.api.data.dto.v2.PersonDTOv2;
 import com.rest.api.exceptions.ResourceNotFoundException;
 import com.rest.api.mapper.ModelMapper;
 import com.rest.api.model.Person;
@@ -30,22 +29,12 @@ public class PersonServices {
         return ModelMapper.parseListObjects(repository.findAll(),PersonDTO.class);
     }
 
-    public List<PersonDTOv2> findAllv2(){
-        logger.info("Find all persons with v2");
-        return ModelMapper.parseListObjects(repository.findAll(),PersonDTOv2.class);
-    }
-
     public PersonDTO create(PersonDTO personDTO){
         logger.info("Create a new person");
         Person person = ModelMapper.parseObject(personDTO,Person.class);
         return ModelMapper.parseObject(repository.save(person),PersonDTO.class);
     }
 
-    public PersonDTOv2 createv2(PersonDTOv2 personDTO){
-        logger.info("Create a new person with v2");
-        Person person = ModelMapper.parseObject(personDTO,Person.class);
-        return ModelMapper.parseObject(repository.save(person),PersonDTOv2.class);
-    }
 
     public PersonDTO update(PersonDTO personDTO){
         logger.info("update a person");

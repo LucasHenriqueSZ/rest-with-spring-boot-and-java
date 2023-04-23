@@ -1,11 +1,10 @@
 package com.rest.api.data.dto.v2;
 
-import com.rest.api.data.dto.v1.PersonDTO;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
+//not implemented
 public class PersonDTOv2 implements Serializable {
 
     private static final long serialVersionUID = 1L;
