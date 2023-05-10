@@ -37,4 +37,3 @@ build/
 /api/mvnw.cmd
 
 api/src/main/resources/application.yml
-api/src/main/resources/application.properties
